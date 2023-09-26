@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nero\\Desktop\\OOP\\OOP\\OOP.csproj": {}
+    "C:\\Users\\Nero\\Desktop\\OOP\\OOP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nero\\Desktop\\OOP\\OOP\\OOP.csproj": {
+    "C:\\Users\\Nero\\Desktop\\OOP\\OOP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nero\\Desktop\\OOP\\OOP\\OOP.csproj",
+        "projectUniqueName": "C:\\Users\\Nero\\Desktop\\OOP\\OOP.csproj",
         "projectName": "OOP",
-        "projectPath": "C:\\Users\\Nero\\Desktop\\OOP\\OOP\\OOP.csproj",
+        "projectPath": "C:\\Users\\Nero\\Desktop\\OOP\\OOP.csproj",
         "packagesPath": "C:\\Users\\Nero\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nero\\Desktop\\OOP\\OOP\\obj\\",
+        "outputPath": "C:\\Users\\Nero\\Desktop\\OOP\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Nero\\AppData\\Roaming\\NuGet\\NuGet.Config"
