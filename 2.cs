@@ -23,7 +23,7 @@ namespace LABA2
     class Pet
     {
         private int weight,age;
-        private string sex;
+        private bool sex;
         
         public int Weight
         {
@@ -32,7 +32,7 @@ namespace LABA2
 
         public string Sex
         {
-             get{return sex;} set{sex = value;}
+             get{if (sex) return "M"; else return "F";} set{if (value == "0") sex = true; else if (value == "1") sex = false;}
         }
 
         public int Age
@@ -84,6 +84,10 @@ namespace LABA2
         {
             Console.WriteLine($"{Name} плывет");
         }
+        public void eating()
+        {
+            Console.WriteLine($"{Name} кушает");
+        }
         
     }
 
@@ -93,13 +97,22 @@ namespace LABA2
         {
             Console.WriteLine($"{Name} дышит");
         }
+        public void drinking()
+        {
+            Console.WriteLine($"{Name} пьет");
+        }
     }
 
     class Ape: Animal
     {
+
         public void JumpOnTree()
         {
             Console.WriteLine($"{Name} прыгает по деревьям");
+        }
+        public void walking()
+        {
+            Console.WriteLine($"{Name} учит команды");
         }
     }
 
@@ -108,6 +121,14 @@ namespace LABA2
         public void learn()
         {
             Console.WriteLine($"{Name} учится");
+        }
+        public void talking()
+        {
+            Console.WriteLine($"{Name} говорит внятную речь)");
+        }
+        public void riding()
+        {
+            Console.WriteLine($"{Name} катается не пегасе");
         }
     }
     
