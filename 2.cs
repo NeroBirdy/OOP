@@ -2,7 +2,7 @@ using System;
 
 namespace LABA2
 {
-    class Hourse
+    class Horse
     {
         private string name;
 
@@ -12,7 +12,7 @@ namespace LABA2
         }
     }
 
-    class Pegas : Hourse
+    class Pegas : Horse
     {
         public void fly()
         {
