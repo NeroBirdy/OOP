@@ -6,14 +6,21 @@ namespace LABA2
     {
         private string name;
 
+        public Horse(string name)
+        {
+            this.name = name;
+        }
         public string Name
         {
-            get{return name;} set{name = value;}
+            get{return name;} 
         }
     }
 
     class Pegas : Horse
     {
+        public Pegas(string name) : base(name)
+        {
+        }
         public void fly()
         {
             Console.WriteLine($"{Name} летит");
@@ -22,52 +29,63 @@ namespace LABA2
 
     class Pet
     {
-        private int weight,age;
-        private bool sex;
-        
+        protected string name;
+        protected int weight,age;
+        protected bool sex;
+
+        public string Name
+        {
+             get{return name;}
+        }
         public int Weight
         {
-             get{return weight;} set{weight = value;}
+             get{return weight;}
         }
 
         public string Sex
         {
-             get{if (sex) return "M"; else return "F";} set{if (value == "0") sex = true; else if (value == "1") sex = false;}
+             get{if (sex) return "M"; else return "F";}
         }
 
         public int Age
         {
-             get{return age;} set{age = value;}
+             get{return age;}
+        }
+
+        public void info()
+        {
+            Console.WriteLine($"Имя: {Name} ,Вес: {Weight}, Пол: {Sex}, Возраст: {Age}");
         }
     }
 
     class Cat: Pet
     {
-        private string name;
 
-        public string Name
+        public void SleepUnderSun()
         {
-            get{return name;} set{name = value;}
+            Console.WriteLine($"{Name} спит под солнышком");
         }
-
-        public void info()
+        public Cat(string name, int weight, int age, bool sex)
         {
-            Console.WriteLine($"Имя: {Name} ,Вес: {Weight}, Пол: {Sex}, Возраст: {Age}");
+            this.name = name;
+            base.weight = weight;
+            base.age = age;
+            base.sex = sex;
         }
     }
 
      class Dog: Pet
     {
-        private string name;
-
-        public string Name
+        public void bone()
         {
-            get{return name;} set{name = value;}
+            Console.WriteLine($"{Name} грызет косточку");
         }
-
-        public void info()
+        public Dog(string name, int weight, int age, bool sex)
         {
-            Console.WriteLine($"Имя: {Name} ,Вес: {Weight}, Пол: {Sex}, Возраст: {Age}");
+            this.name = name;
+            base.weight = weight;
+            base.age = age;
+            base.sex = sex;
         }
     }
 
@@ -75,10 +93,17 @@ namespace LABA2
     {
         private string name;
 
+        public Fish(string name)
+        {
+            this.name = name;
+        }
+
         public string Name
         {
-            get{return name;} set{name = value;}
+            get{return name;}
         }
+
+        protected bool gills = true;
 
         public void swim()
         {
@@ -88,11 +113,27 @@ namespace LABA2
         {
             Console.WriteLine($"{Name} кушает");
         }
-        
+        public void breatheUnderwater()
+    {
+        if (gills)
+        {
+            Console.WriteLine($"{Name} дышит через жабры");
+        }
+        else
+        {
+            Console.WriteLine($"{Name} не имеет жабр и не может дышать под водой");
+        }
+    }
     }
 
     class Animal: Fish
     {
+
+        protected int feet = 4;
+        public Animal(string name) : base(name)
+        {
+            gills = false;
+        }
         public void breathe()
         {
             Console.WriteLine($"{Name} дышит");
@@ -105,19 +146,33 @@ namespace LABA2
 
     class Ape: Animal
     {
+        protected int hands = 2;
+        protected string furColor;
 
+        public Ape(string name,string furColor) : base(name)
+        {
+            this.furColor = furColor;
+            feet = 2;
+        }
         public void JumpOnTree()
         {
             Console.WriteLine($"{Name} прыгает по деревьям");
         }
-        public void walking()
+
+        public void Color()
         {
-            Console.WriteLine($"{Name} учит команды");
+            Console.WriteLine($"У {Name} цвет волос");
         }
     }
 
     class Human: Ape
     {
+        private string secondName;
+
+        public Human(string name,string furColor,string secondName) : base(name, furColor)
+        {
+            this.secondName = secondName;
+        }
         public void learn()
         {
             Console.WriteLine($"{Name} учится");
@@ -130,16 +185,20 @@ namespace LABA2
         {
             Console.WriteLine($"{Name} катается не пегасе");
         }
+
+        public void info()
+        {
+            Console.WriteLine($"Это {secondName} {Name} и у него {furColor} цвет волос");
+        }
     }
     
     class World
     {
         static void Main()
         {
-            Human Oleg = new Human();
-            Oleg.Name = "Oleg";
-            Oleg.learn();
+            Human Oleg = new Human("Oleg", "черный","Игорь");
             Console.WriteLine(Oleg.Name);
+            Oleg.info();
         }
     }
 }
