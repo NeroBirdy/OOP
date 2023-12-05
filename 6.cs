@@ -6,9 +6,9 @@ namespace LABA_6
     {
        static void Main()
 	   {
-			Manufacturer man1 = new PenMan("1");
+			Manufacturer man1 = new PenMan("1",2);
 			Chancellery pen = man1.Create();
-			Manufacturer man2 = new PencilMan("2");
+			Manufacturer man2 = new PencilMan("2","синий");
 			Chancellery pencil = man2.Create();
 
 
@@ -18,7 +18,7 @@ namespace LABA_6
 			pen1.Write();
 			notebook1.WriteNote();
 
-			ChancelleryFactory factory2 = new SecondFactory();
+			ChancelleryFactory factory2 = new SecondFactory("крокодила","синий");
 			Pen pen2 = factory2.CreatePen();
 			Notebook notebook2 = factory2.CreateNotebook();
 			pen2.Write();
@@ -26,54 +26,69 @@ namespace LABA_6
 	   }
     }
 
-    abstract class Manufacturer
+abstract class Manufacturer
+{
+    public string Name { get; set; }
+
+    public Manufacturer(string name)
     {
-        public string Name { get; set; }
-
-        public Manufacturer(string name)
-        {
-            Name = name;
-        }
-
-        abstract public Chancellery Create();
+        Name = name;
     }
 
-    class PenMan : Manufacturer
+    abstract public Chancellery Create();
+}
+
+class PenMan : Manufacturer
+{
+    public int Cnt { get; set; }
+
+    public PenMan(string name, int cnt) : base(name)
     {
-		public PenMan(string name) : base(name)
-		{}
-        public override Chancellery Create()
-        {
-            return new Pen1();
-        }
+        Cnt = cnt;
     }
 
-    class PencilMan : Manufacturer
+    public override Chancellery Create()
     {
-		public PencilMan(string name) : base(name)
-		{}
-        public override Chancellery Create()
-        {
-            return new Pencil();
-        }
+        return new Pen1(Cnt);
     }
+}
+
+class PencilMan : Manufacturer
+{
+    public string Color { get; set; }
+
+    public PencilMan(string name, string color) : base(name)
+    {
+        Color = color;
+    }
+
+    public override Chancellery Create()
+    {
+        return new Pencil(Color);
+    }
+}
 
 abstract class Chancellery
-{}
+{ }
 
 class Pen1 : Chancellery
 {
-    public Pen1()
+    public int Cnt;
+
+    public Pen1(int cnt)
     {
-        Console.WriteLine("Ручка сделана");
+        Cnt = cnt;
+        Console.WriteLine($"Ручка с {Cnt} стержнями сделана");
     }
 }
 
 class Pencil : Chancellery
 {
-    public Pencil()
+    public string Color;
+    public Pencil(string color)
     {
-        Console.WriteLine("Карандаш сделан");
+        Color = color;
+        Console.WriteLine($"Карандаш цвета {Color} сделан");
     }
 }
 
@@ -100,9 +115,16 @@ class Pencil : Chancellery
 
 	class GelPen : Pen
 	{
+		public string Color { get; set; }
+
+		public GelPen(string color)
+		{
+			Color = color;
+		}
+
 		public override void Write()
 		{
-			Console.WriteLine("Пишет гелевой ручкой");
+			Console.WriteLine($"Пишет гелевой ручкой цвета {Color}");
 		}
 	}
 
@@ -116,9 +138,16 @@ class Pencil : Chancellery
 
 	class LeatherDiary : Notebook
 	{
+		public string CoverMaterial { get; set; }
+
+		public LeatherDiary(string coverMaterial)
+		{
+			CoverMaterial = coverMaterial;
+		}
+
 		public override void WriteNote()
 		{
-			Console.WriteLine("Пишет в  кожанный дневник");
+			Console.WriteLine($"Пишет в кожанный дневник с обложкой из {CoverMaterial}");
 		}
 	}
 	abstract class ChancelleryFactory
@@ -142,14 +171,22 @@ class Pencil : Chancellery
 
 	class SecondFactory : ChancelleryFactory
 	{
+        public string CoverMaterial { get; set; }
+        public string Color { get; set; }
+
+        public SecondFactory(string coverMaterial, string color)
+        {
+            CoverMaterial = coverMaterial;
+            Color = color;
+        }
 		public override Pen CreatePen()
 		{
-			return new GelPen();
+			return new GelPen(Color);
 		}
 
 		public override Notebook CreateNotebook()
 		{
-			return new LeatherDiary();
+			return new LeatherDiary(CoverMaterial);
 		}
 	}
 }
