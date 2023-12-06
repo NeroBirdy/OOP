@@ -94,8 +94,6 @@ class Program
                 Console.WriteLine(Sum3(g, z) / Sum2(g) * Sum2(z));
             }
 
-
-
             Console.WriteLine("Продолжим решать?");
             string answer = Console.ReadLine();
             if(answer != "1")
@@ -137,7 +135,8 @@ class Program
         if (x < -7)
         {
             return -3 * Math.Sin(2 * x);
-        }else if(x>=-7 && x < 0)
+        }
+        else if(x>=-7 && x < 0)
         {
             return Complex.Pow(x, 0.5).Magnitude;
         }
