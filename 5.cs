@@ -57,31 +57,31 @@ class Program
         List<Function> examples = new List<Function>() { first, second, third };
         List<double> g = new List<double>();
         List<double> z = new List<double>();
-        Function Y1;
-        Y1 = x => 3 * x - Math.Sin(2 * x);
-        Function Y2;
-        Y2 = x => Math.Exp(-2 * x) - 2 * x + 1;
+        Function F1;
+        F1 = x => 3 * x - Math.Sin(2 * x);
+        Function F2;
+        F2 = x => Math.Exp(-2 * x) - 2 * x + 1;
         double temp;
         int p;
         while (true)
         {
             Console.WriteLine("Введите номер задания");
-            int count_example = int.Parse(Console.ReadLine());
-            if(count_example <= 3) 
+            int number = int.Parse(Console.ReadLine());
+            if(number <= 3) 
             {
                 Console.WriteLine("Введите x:");
                 double x = double.Parse(Console.ReadLine());
-                result(x, examples[count_example - 1]);
+                result(x, examples[number - 1]);
             }
-            else if(count_example == 4) 
+            else if(number == 4) 
             {
                 Console.WriteLine("Введите n:");
                 p=int.Parse(Console.ReadLine());
                 Integral I1;
                 I1 = (a,b,n,Y) => (b-a)/n*Sum(a,b,n,Y);
-                Console.WriteLine(I1(0,2*Math.PI,p,Y1)-I1(0,Math.PI,p,Y2));
+                Console.WriteLine(I1(0,2*Math.PI,p,F1)-I1(0,Math.PI,p,F2));
             }
-            else if (count_example == 5)
+            else if (number == 5)
             {
                 Console.WriteLine("Задайте размерность выборок:");
                 int size = int.Parse(Console.ReadLine());
@@ -144,16 +144,6 @@ class Program
         {
             return 1 / x;
         }
-    }
-
-    static double four(double a, double b, double n)
-    {
-        double temp_sum = 0;
-        for(int i = 0; i <= n - 1; i++)
-        {
-            temp_sum += (a + i * (b - a) / n);
-        }
-        return (b-a)/n*temp_sum;
     }
 }
 
