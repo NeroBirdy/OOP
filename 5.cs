@@ -9,48 +9,10 @@ class Program
 {
     delegate double Function(double x);
     delegate double Integral (double a, double b, int n,Function Y);
-
-    static double Sum(double a, double b,int n, Function Y)
-    {
-        double sum = 0;
-        for(int i = 0; i < n - 1; i++)
-        {
-            sum += Y(a + i * (b - a) / n);
-        }
-        return sum;
-    }
-
-    static double Sum(List<double> x) 
-    { 
-        double sum = 0;
-        for(int i = 0;i < x.Count; i++)
-        {
-            sum += x[i];
-        }
-        return sum;
-    }
-
-    static double Sum2(List<double> x)
-    {
-        double sum = 0;
-        for(int i = 0; i < x.Count; i++)
-        {
-            sum += Math.Pow((x[i] - Sum(x)),2);
-        }
-        return sum;
-    }
-
-    static double Sum3(List<double> x,List<double> y)
-    {
-        double sum = 0;
-        for(int i = 0; i < x.Count; i++)
-        {
-            sum += (x[i] - Sum(x)) * (y[i] - Sum(y));
-        }
-        return sum;
-    }
-
-
+    delegate double Sum(double a, double b, int n, Function Y);
+    delegate double Sum2(List<double> x);
+    delegate double Sum3(List<double> x, Sum2 S);
+    delegate double Sum4(List<double> x, List<double> y, Sum2 S);
 
     static void Main()
     {
@@ -61,6 +23,39 @@ class Program
         F1 = x => 3 * x - Math.Sin(2 * x);
         Function F2;
         F2 = x => Math.Exp(-2 * x) - 2 * x + 1;
+
+        Sum S1 = (a,b,n,Y) => {
+            double sum = 0;
+            for(int i = 0; i < n - 1; i++)
+            {
+                sum += Y(a + i * (b - a) / n);
+            }
+            return sum;
+        };
+        Sum2 S2 = (List<double> x) => {
+            double sum = 0;
+            for(int i = 0;i < x.Count; i++)
+            {
+                sum += x[i];
+            }
+            return sum;
+        };
+        Sum3 S3 = (List<double> x,Sum2 S) => {
+            double sum = 0;
+            for(int i = 0; i < x.Count; i++)
+            {
+                sum += Math.Pow(x[i] - S(x),2);
+            }
+            return sum;
+        };
+        Sum4 S4 = (List<double> x, List<double> y, Sum2 S) => {
+            double sum = 0;
+            for(int i = 0; i < x.Count; i++)
+            {
+                sum += (x[i] - S(x)) * (y[i] - S(y));
+            }
+            return sum;
+        };
         double temp;
         int p;
         while (true)
@@ -78,7 +73,7 @@ class Program
                 Console.WriteLine("Введите n:");
                 p=int.Parse(Console.ReadLine());
                 Integral I1;
-                I1 = (a,b,n,Y) => (b-a)/n*Sum(a,b,n,Y);
+                I1 = (a,b,n,Y) => (b-a)/n*S1(a,b,n,Y);
                 Console.WriteLine(I1(0,2*Math.PI,p,F1)-I1(0,Math.PI,p,F2));
             }
             else if (number == 5)
@@ -90,8 +85,7 @@ class Program
                     g.Add(double.Parse(Console.ReadLine()));
                     z.Add(double.Parse(Console.ReadLine()));
                 }
-                Console.WriteLine(g[2]);
-                Console.WriteLine(Sum3(g, z) / Sum2(g) * Sum2(z));
+                Console.WriteLine(S4(g, z, S2) / S3(g, S2) * S3(z, S2));
             }
 
             Console.WriteLine("Продолжим решать?");
