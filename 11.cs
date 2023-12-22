@@ -5,21 +5,21 @@ class Program
 {
     static void Main()
     {
-        // ICTemperature celsiusSensor = new CSensor();
-        // Console.WriteLine($"Текущая температура в градусах Цельсия: {celsiusSensor.GetTemperature()}");
-        // IFTemperature fahrenheitAdapter = new FahrenheitAdapter(celsiusSensor);
-        // Console.WriteLine($"Текущая температура в градусах Фаренгейта: {fahrenheitAdapter.GetTemperatureInFahrenheit()}");
+        ICTemperature celsiusSensor = new CSensor();
+        Console.WriteLine($"Текущая температура в градусах Цельсия: {celsiusSensor.GetTemperature()}");
+        IFTemperature fahrenheitAdapter = new FahrenheitAdapter(celsiusSensor);
+        Console.WriteLine($"Текущая температура в градусах Фаренгейта: {fahrenheitAdapter.GetTemperatureInFahrenheit()}");
 
-        // Console.WriteLine("");
+        Console.WriteLine("");
 
-        // IOutput monitor = new Monitor();
-        // Device tv = new TV(monitor);
-        // tv.Print();
-        // IOutput projector = new Projector();
-        // Device computer = new Computer(projector);
-        // computer.Print();
+        IOutput monitor = new Monitor();
+        Device tv = new TV(monitor);
+        tv.Print();
+        IOutput projector = new Projector();
+        Device computer = new Computer(projector);
+        computer.Print();
 
-        // Console.WriteLine("");
+        Console.WriteLine("");
 
         DocumentFactory documentFactory = new DocumentFactory();
         IDocument document1 = documentFactory.GetDocument("1");
@@ -31,15 +31,15 @@ class Program
         document4.Open();
         document4.Close();
 
-        // Console.WriteLine("");
+        Console.WriteLine("");
 
-        // IAdditionOperation proxy = new AdditionProxy();
+        IAdditionOperation proxy = new AdditionProxy();
 
-        // Console.WriteLine(proxy.Add(2, 3)); 
-        // Console.WriteLine(proxy.Add(2, 3));
-        // Console.WriteLine(proxy.Add(2, 4));
-        // Console.WriteLine(proxy.Add(2, 5));
-        // Console.WriteLine(proxy.Add(2, 5));
+        Console.WriteLine(proxy.Add(2, 3)); 
+        Console.WriteLine(proxy.Add(2, 3));
+        Console.WriteLine(proxy.Add(2, 4));
+        Console.WriteLine(proxy.Add(2, 5));
+        Console.WriteLine(proxy.Add(2, 5));
     }
 }
 //Адаптер
