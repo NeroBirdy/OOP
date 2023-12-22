@@ -21,22 +21,25 @@ class Program
 
         // Console.WriteLine("");
 
-        // DocumentFactory documentFactory = new DocumentFactory();
-        // IDocument document1 = documentFactory.GetDocument("1");
-        // IDocument document2 = documentFactory.GetDocument("2");
-        // IDocument document3 = documentFactory.GetDocument("2");
-        // document1.Open();
-        // document1.Close();
+        DocumentFactory documentFactory = new DocumentFactory();
+        IDocument document1 = documentFactory.GetDocument("1");
+        IDocument document2 = documentFactory.GetDocument("2");
+        IDocument document3 = documentFactory.GetDocument("2");
+        document1.Open();
+        document1.Close();
+        UnsharedTextDocument document4 = new UnsharedTextDocument("Влада");
+        document4.Open();
+        document4.Close();
 
         // Console.WriteLine("");
 
-        IAdditionOperation proxy = new AdditionProxy();
+        // IAdditionOperation proxy = new AdditionProxy();
 
-        Console.WriteLine(proxy.Add(2, 3)); 
-        Console.WriteLine(proxy.Add(2, 3));
-        Console.WriteLine(proxy.Add(2, 4));
-        Console.WriteLine(proxy.Add(2, 5));
-        Console.WriteLine(proxy.Add(2, 5));
+        // Console.WriteLine(proxy.Add(2, 3)); 
+        // Console.WriteLine(proxy.Add(2, 3));
+        // Console.WriteLine(proxy.Add(2, 4));
+        // Console.WriteLine(proxy.Add(2, 5));
+        // Console.WriteLine(proxy.Add(2, 5));
     }
 }
 //Адаптер
@@ -132,46 +135,66 @@ class Projector : IOutput
 
 //Приспособленец
 interface IDocument
-{
-    void Open();
-    void Close();
-}
+ {
+     void Open();
+     void Close();
+ }
 
-class TextDocument : IDocument
-{
-    private string content;
+ class TextDocument : IDocument
+ {
+     private string content;
 
-    public TextDocument(string content)
-    {
-        this.content = content;
-    }
+     public TextDocument(string content)
+     {
+         this.content = content;
+     }
 
-    public void Open()
-    {
-        Console.WriteLine("Текстовый документ открыт");
-    }
+     public void Open()
+     {
+         Console.WriteLine("Текстовый документ открыт");
+     }
 
-    public void Close()
-    {
-        Console.WriteLine("Текстовый документ закрыт");
-    }
-}
+     public void Close()
+     {
+         Console.WriteLine("Текстовый документ закрыт");
+     }
+ }
 
-class DocumentFactory
-{
-    private Hashtable documents = new Hashtable();
+ class UnsharedTextDocument : IDocument
+ {
+     private string author;
 
-    public IDocument GetDocument(string content)
-    {
-        if (!documents.ContainsKey(content))
-        {
-            Console.WriteLine("Создание нового текстового документа");
-            documents.Add(content,new TextDocument(content));
-        }
+     public UnsharedTextDocument(string author)
+     {
+         this.author = author;
+     }
 
-        return documents[content] as IDocument;
-    }
-}
+     public void Open()
+     {
+         Console.WriteLine($"Автор данного текста: {author}");
+     }
+
+     public void Close()
+     {
+         Console.WriteLine($"{author} надеется что вам понравилась его/её работа");
+     }
+ }
+
+ class DocumentFactory
+ {
+     private Hashtable documents = new Hashtable();
+
+     public IDocument GetDocument(string content)
+     {
+         if (!documents.ContainsKey(content))
+         {
+             Console.WriteLine("Создание нового текстового документа");
+             documents.Add(content, new TextDocument(content));
+         }
+
+         return documents[content] as IDocument;
+     }
+ }
 //Заместитель
 interface IAdditionOperation
 {
